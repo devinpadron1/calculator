@@ -9,32 +9,45 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <div id="display">0</div>
-    <section class="numPad">
-        <div>
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
+    <section class="output">
+        <div id=""></div>
+        <div id="display">0</div>
+    </section>
+
+    <section class="input">
+        <!-- Row 1: -->
+        <div class="row"> 
+            <button class="clear double">Clear</button>
+            <button class="sign">+/-</button>
+            <button class="operator">/</button>
         </div>
-        <div>
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-        </div>
-        <div>
+        <!-- Row 2 -->
+        <div class="row"> 
             <button class="number">1</button>
             <button class="number">2</button>
             <button class="number">3</button>
+            <button class="operator">x</button>
         </div>
-        <button class="number">0</button>
+        <!-- Row 3 -->
+        <div class="row"> 
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator">-</button>
+        </div>
+        <!-- Row 4 -->
+        <div class="row"> 
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">+</button>
+        </div>
+        <!-- Row 5 -->
+        <div class="row"> 
+            <button class="number">0</button>
+            <button class="decimal">.</button>
+            <button class="equals double">=</button>
+        </div>
     </section>
-    <section class="operatorsPad">
-        <button class="operator">/</button>
-        <button class="operator">x</button>
-        <button class="operator">-</button>
-        <button class="operator">+</button>
-        <button id="operatorEquals">=</button>
-    </section>
-    <button id="clear">Clear</button>
 </body>
 </html>

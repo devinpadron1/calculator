@@ -2,11 +2,6 @@
     border: 1px solid red;
 } */
 
-button {
-    width: auto;
-    font-size: 25px;
-}
-
 body {
     display: flex;
     justify-content: center;
@@ -14,13 +9,53 @@ body {
     height: 100vh;
 }
 
+/* Input Side */
+.input {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    width: 250px;
+    height: 60px;
+}
+
+button {
+    flex-basis: 25%;
+    font-size: 25px;
+    margin: 2px 2px;
+    border-radius: 6px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.double {
+    flex-basis: 50%;
+}
+
+.operator {
+    margin-left: 6px;
+}
+
+.sign {
+    background-color: rgba(0, 0, 255, 0.222);
+}
+
+.operator {
+    background-color: aliceblue;
+}
+
+.equals {
+    background-color: rgba(0, 128, 0, 0.222);
+}
+
+.clear {
+    background-color: rgba(255, 166, 0, 0.221);
+}
+
+/* Output Side */
 #display {
     width: 100px;
     height: 100px;
     border: 2px solid black;
-}
-
-.operatorsPad {
-    display: flex;
-    flex-direction: column;
 }
