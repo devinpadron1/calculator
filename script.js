@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create objects
     const numberedButtons = document.querySelectorAll('.number');
     const operatorButtons = document.querySelectorAll('.operator');
-    const equalsButton = document.getElementById('operatorEquals')
+    const equalsButton = document.querySelector('.equals');
     const displayObj = document.getElementById('display');
-    const clearButton = document.getElementById('clear');
+    const clearButton = document.querySelector('.clear');
     
     // Loop through each numbered button
     numberedButtons.forEach((button) => {
