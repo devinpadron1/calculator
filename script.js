@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let total = 0;
     let operator;
     let replaceTracker = true; // If equal to true will replace displayed value
-    let numTracker = true; // If true then value will be assigned to num1
+    let numTracker = true; // If true then value will be assigned to num1, else num2
     
     // Operations
     let sum = (num1, num2) => num1 + num2;
@@ -28,46 +28,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const numberedButtons = document.querySelectorAll('.number');
     const operatorButtons = document.querySelectorAll('.operator');
     const equalsButton = document.querySelector('.equals');
-    const displayObj = document.getElementById('display');
+    const displayMain = document.getElementById('display');
+    const displayEqn = document.getElementById('equation');
+    const signChange = document.querySelector('.sign');
     const clearButton = document.querySelector('.clear');
     
     // Loop through each numbered button
     numberedButtons.forEach((button) => {
         // Add an event listener when a button is clicked
         button.addEventListener("click", () => {
-            // We want the value of 0 to be replaced, not concatenated on
+            // TODO: Prevent number from being concatenated onto zero (i.e. 0024).
+            // Replace value being displayed
             if (replaceTracker) {
                 // Change the display to whatever was clicked.
-                displayObj.textContent = button.textContent;
-                // Assign number to variable
-                num1 = displayObj.textContent;
+                displayMain.textContent = button.textContent;
+                if (numTracker) {
+                    displayEqn.textContent = button.textContent;
+                    num1 = displayMain.textContent;
+                } else {
+                    displayEqn.textContent += button.textContent;
+                    num2 = displayMain.textContent;
+                }
                 // No longer replace number
                 replaceTracker = false;
             } else {
-                displayObj.textContent += button.textContent;
-                if (numTracker) {
-                    num1 += button.textContent;
-                } else {
-                    num2 += button.textContent;
-                }
+                displayMain.textContent += button.textContent;
+                displayEqn.textContent += button.textContent;
+                // Concatenate text
+                numTracker ? (num1 += button.textContent) : (num2 = button.textContent);
             }
-            }
-        )  
+        })  
     })
 
     // Operator Buttons
     operatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
+            displayEqn.textContent += ` ${button.textContent} `;
             operator = button.textContent;
+            replaceTracker = true;
             numTracker = false;
-        }
-        )  
+        })  
     })
 
     // Equals Operator
     equalsButton.addEventListener("click", () => {
         total = operate(operator, Number(num1), Number(num2));
-        displayObj.textContent = total;
+        displayMain.textContent = total;
         num1 = operate(operator, Number(num1), Number(num2));
         num2 = 0;
         if (total == 0) {
@@ -75,14 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         replaceTracker = false;
         numTracker = false;
+        // TODO: Clear main and equation displays after a number is pressed after equal sign (result)
     })
 
     // Clear button
     clearButton.addEventListener("click", () => {
-        displayObj.textContent = 0;
+        displayMain.textContent = 0;
+        displayEqn.textContent = 0;
         num1 = 0;
         num2 = 0;
         replaceTracker = true;
         numTracker = true;
     })
 });
+

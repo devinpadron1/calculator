@@ -69,11 +69,11 @@ button:active {
 }
 
 .sign {
-    background-color: rgb(199, 225, 246);
+    background-color:rgb(233, 217, 240);
 }
 
 .operator {
-    background-color: aliceblue;
+    background-color: rgb(199, 225, 246);
 }
 
 .equals {
