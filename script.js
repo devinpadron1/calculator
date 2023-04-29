@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let operator;
     let replaceTracker = true; // If equal to true will replace displayed value
     let numTracker = true; // If true then value will be assigned to num1, else num2
+    let equalsClicked = false; // if clear button was just clicked
     
     // Operations
     let sum = (num1, num2) => num1 + num2;
@@ -38,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add an event listener when a button is clicked
         button.addEventListener("click", () => {
             // TODO: Prevent number from being concatenated onto zero (i.e. 0024).
+            if (equalsClicked) {
+                resetVariables();
+            } else {
+                equalsClicked = false;
+            }
             // Replace value being displayed
             if (replaceTracker) {
                 // Change the display to whatever was clicked.
@@ -55,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayMain.textContent += button.textContent;
                 displayEqn.textContent += button.textContent;
                 // Concatenate text
-                numTracker ? (num1 += button.textContent) : (num2 = button.textContent);
-            }
+                numTracker ? (num1 += button.textContent) : (num2 += button.textContent);
+            } 
         })  
     })
 
@@ -74,24 +80,31 @@ document.addEventListener("DOMContentLoaded", () => {
     equalsButton.addEventListener("click", () => {
         total = operate(operator, Number(num1), Number(num2));
         displayMain.textContent = total;
-        num1 = operate(operator, Number(num1), Number(num2));
+        displayEqn.textContent = total;
+        num1 = total;
         num2 = 0;
-        if (total == 0) {
-            replaceTracker = true;
-        }
-        replaceTracker = false;
+        replaceTracker = true;
         numTracker = false;
-        // TODO: Clear main and equation displays after a number is pressed after equal sign (result)
+        // TODO: Clear both displays after a number is pressed after equal sign (result)
+        equalsClicked = true;
     })
 
     // Clear button
     clearButton.addEventListener("click", () => {
         displayMain.textContent = 0;
         displayEqn.textContent = 0;
+        resetVariables();
+        equalsClicked = false;
+    })
+    
+    function resetVariables() {
         num1 = 0;
         num2 = 0;
+        total = 0;
         replaceTracker = true;
         numTracker = true;
-    })
+    }
 });
 
+
+// TODO: Make display text shrink if number of digits is large enough
