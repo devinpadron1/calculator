@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const displayEqn = document.getElementById('equation');
     const signChange = document.querySelector('.sign');
     const clearButton = document.querySelector('.clear');
+    const delButton = document.querySelector('.backspace');
     
     // Loop through each numbered button
     numberedButtons.forEach((button) => {
@@ -108,10 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
         equalsClicked = false;
     })
     
+    // Backspace (DEL) button
+    delButton.addEventListener("click", () => {
+        if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
+            num1 = Math.floor(num1 / 10);
+            if (num1 < 0) {
+                num1 = 0;
+            }
+            updateDisplay(num1);
+        } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
+            num2 = Math.floor(num2 / 10);
+            if (num2 < 0) {
+                num2 = 0;
+            }
+            displayMain.textContent = num2;
+            displayEqn.textContent = num1 + ' ' + operator + num2 + ' ';
+        }
+    })
+
     // Sign change
     signChange.addEventListener("click", () => {
         // if in num1 and number isnt 0
-        if (operatorCounter == 0 && num1 !== 0) {
+        if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
             num1 = num1 * -1;
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
@@ -156,4 +175,5 @@ document.addEventListener("DOMContentLoaded", () => {
 // TODO: Add decimal functionality
 // TODO: Limit decimal places of answers to 3
 // TODO: Add backspace functionality
+// TODO: Backspace and sign change functionality not working after getting result after pressing equals
 // TODO: Listen for keyboard input
