@@ -119,11 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
             num2 = Math.floor(num2 / 10);
-            if (num2 < 0) {
+            if (num2 == 0) {
                 num2 = 0;
+                displayMain.textContent = num2;
+                displayEqn.textContent = num1 + ' ' + operator + ' ';
+                replaceTracker = true;
+            } else {
+                displayMain.textContent = num2;
+                displayEqn.textContent = num1 + ' ' + operator + ' ' + num2;
             }
-            displayMain.textContent = num2;
-            displayEqn.textContent = num1 + ' ' + operator + num2 + ' ';
         }
     })
 
@@ -174,6 +178,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // TODO: Make display text shrink if number of digits is large enough
 // TODO: Add decimal functionality
 // TODO: Limit decimal places of answers to 3
-// TODO: Add backspace functionality
-// TODO: Backspace and sign change functionality not working after getting result after pressing equals
 // TODO: Listen for keyboard input
