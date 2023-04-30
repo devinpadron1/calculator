@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    // Functions
     function resetVariables() {
         num1 = 0;
         num2 = 0;
@@ -153,5 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // TODO: Make display text shrink if number of digits is large enough
 // TODO: Add decimal functionality
-// TODO: Add negative number functionality
+// TODO: Limit decimal places of answers to 3
+// TODO: Add backspace functionality
 // TODO: Listen for keyboard input

@@ -68,20 +68,21 @@ button:active {
     flex-basis: 50%;
 }
 
-.sign {
-    background-color:rgb(233, 217, 240);
+/* Button colors */
+.clear {
+    background-color: rgb(246, 202, 202);
 }
-
+.backspace {
+    background-color: rgb(250, 227, 186);
+}
 .operator {
     background-color: rgb(199, 225, 246);
 }
-
 .equals {
     background-color: rgb(177, 208, 177);
 }
-
-.clear {
-    background-color: rgb(250, 227, 186);
+.sign {
+    background-color:rgb(233, 217, 240);
 }
 
 /* Output Side */
