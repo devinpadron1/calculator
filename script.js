@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     equalsOperation();
                     operatorCounter --;
                 }
+                displayEqn.textContent += ` ${button.textContent} `;
             }
-            displayEqn.textContent += ` ${button.textContent} `;
             operator = button.textContent;
             replaceTracker = true;
             numTracker = false;
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function equalsOperation() {
-        if (operatorCounter > 0) {
+        if (operatorCounter > 0 && !equalsClicked) {
             total = operate(operator, Number(num1), Number(num2));
             displayMain.textContent = total;
             displayEqn.textContent = total;
