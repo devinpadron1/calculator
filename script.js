@@ -117,12 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
             // multi-digit condition
             num1 = Number(num1.toString().slice(0,-1));
+            updateDisplay(num1);
             // single digit condition
             if (num1 == 0) {
                 replaceTracker = true;
                 decimalClicked = false;
             }
-            updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
             num2 = Number(num2.toString().slice(0,-1));
             if (num2 == 0) {
@@ -157,13 +157,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Decimal input
     decimalButton.addEventListener("click", () => {
         if (!decimalClicked) {
+            if (equalsClicked) {
+                resetVariables();
+                updateDisplay(0);
+            }
             if (operatorCounter == 0) { // if num1
                 num1 += ".";
                 displayMain.textContent += ".";
                 displayEqn.textContent += ".";
             } else { // if num2
                 num2 += ".";
-                displayMain.textContent = ".";
+                displayMain.textContent += ".";
                 displayEqn.textContent += ".";
             }
             replaceTracker = false;
@@ -255,3 +259,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TODO: Make display text shrink if number of digits is large enough
+// TODO: Issue when using decimal immediately after equals
