@@ -259,4 +259,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TODO: Make display text shrink if number of digits is large enough
-// TODO: Issue when using decimal immediately after equals
