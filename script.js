@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add an event listener when a button is clicked
         button.addEventListener("click", () => {
             // Prevent number from being concatenated onto zero (i.e. 0024).
-            if (button.textContent == 0 && displayMain.textContent == 0) {
+            if (button.textContent == 0 && displayMain.textContent == 0 && !decimalClicked) {
                 // do nothing 
             } else {
                 // reset values if equals was previously clicked without operator in between
@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // single digit condition
             if (num1 == 0) {
                 replaceTracker = true;
+                decimalClicked = false;
             }
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
@@ -128,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayMain.textContent = num2;
                 displayEqn.textContent = num1 + ' ' + operator + ' ';
                 replaceTracker = true;
+                decimalClicked = false;
             } else {
                 displayMain.textContent = num2;
                 displayEqn.textContent = num1 + ' ' + operator + ' ' + num2;
@@ -176,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
         total = 0;
         replaceTracker = true;
         numTracker = true;
+        equalsClicked = false;
         operatorClicked = false;
         operatorCounter = 0;
         operatorClicked = false;
@@ -197,17 +200,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateDisplay(value) {
+        // Check if the value has more than 3 decimal places
+        if (Math.abs(value - Math.round(value)) > 0.0001) {
+            // Round to 3 decimal places
+            value = parseFloat(value.toFixed(3));
+        }
         displayMain.textContent = value;
         displayEqn.textContent = value;
     }
 
     // Keyboard input
     document.addEventListener('keydown', (event) => {
-        const key = event.key; // Get the pressed key    
-    })
-      
+        handleKeyboardInput(event.key);
+    });
+
+    function handleKeyboardInput(key) {
+        if (key >= '0' && key <= '9') {
+            const button = document.querySelector(`button[data-key="${key}"]`);
+            button.click();
+        } else {
+            switch (key) {
+                case 'Backspace':
+                    delButton.click();
+                    break;
+                case 'Delete':
+                    clearButton.click();
+                    break;
+                case 'Enter':
+                case '=':
+                    equalsButton.click();
+                    break;
+                case '.':
+                case '+':
+                case '-':
+                case '/':
+                    const operatorButton = document.querySelector(`button[data-key="${key}"]`);
+                    operatorButton.click();
+                    break;
+                case '*':
+                case '8':
+                    if (event.shiftKey) {
+                        const multiplyButton = document.querySelector(`button[data-key="*"]`);
+                        multiplyButton.click();
+                    } else {
+                        const button = document.querySelector(`button[data-key="${key}"]`);
+                        button.click();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }      
 });
 
 // TODO: Make display text shrink if number of digits is large enough
-// TODO: Limit decimal places of answers to 3
-// TODO: Listen for keyboard input
