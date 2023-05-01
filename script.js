@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let equalsClicked = false; // if clear button was just clicked
     let operatorClicked = true;
     let operatorCounter = 0;
+    let decimalClicked = false;
     
     // Operations
     let sum = (num1, num2) => num1 + num2;
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const signChange = document.querySelector('.sign');
     const clearButton = document.querySelector('.clear');
     const delButton = document.querySelector('.backspace');
+    const decimalButton = document.querySelector('.decimal');
     
     // Loop through each numbered button
     numberedButtons.forEach((button) => {
@@ -94,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
             numTracker = false;
             equalsClicked = false;
             operatorClicked = true;
+            decimalClicked = false;
         })  
     })
 
@@ -113,22 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
     delButton.addEventListener("click", () => {
         if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
             // multi-digit condition
-            if (num1 > 0) { // if number is positive
-                num1 = Math.floor(num1 / 10);
-            } else { // if number is negative
-                num1 = Math.ceil(num1 / 10);
-            }
+            num1 = Number(num1.toString().slice(0,-1));
             // single digit condition
             if (num1 == 0) {
                 replaceTracker = true;
             }
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
-            if (num2 > 0) {
-                num2 = Math.floor(num2 / 10);
-            } else {
-                num2 = Math.ceil(num2 / 10);
-            }
+            num2 = Number(num2.toString().slice(0,-1));
             if (num2 == 0) {
                 displayMain.textContent = num2;
                 displayEqn.textContent = num1 + ' ' + operator + ' ';
@@ -148,9 +143,30 @@ document.addEventListener("DOMContentLoaded", () => {
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
             num2 = num2 * -1;
+            if (num2 > 0) {
+                displayEqn.textContent = num1 + ' ' + operator + num2 + ' ';
+            } else if (num2 < 0) {
+                displayEqn.textContent = num1 + ' ' + operator + ' ' + num2 + ' ';
+            }
             displayMain.textContent = num2;
-            displayEqn.textContent = num1 + ' ' + operator + num2 + ' ';
         }
+    })
+    
+    // Decimal input
+    decimalButton.addEventListener("click", () => {
+        if (!decimalClicked) {
+            if (operatorCounter == 0) { // if num1
+                num1 += ".";
+                displayMain.textContent += ".";
+                displayEqn.textContent += ".";
+            } else { // if num2
+                num2 += ".";
+                displayMain.textContent = ".";
+                displayEqn.textContent += ".";
+            }
+            replaceTracker = false;
+            decimalClicked = true;
+        };
     })
 
     // Functions
@@ -163,6 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
         operatorClicked = false;
         operatorCounter = 0;
         operatorClicked = false;
+        decimalClicked = false;
     }
 
     function equalsOperation() {
@@ -175,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
             numTracker = false;
             equalsClicked = true;
             operatorClicked = false;
+            decimalClicked = false;
         }
     }
 
@@ -191,6 +209,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TODO: Make display text shrink if number of digits is large enough
-// TODO: Add decimal functionality
 // TODO: Limit decimal places of answers to 3
 // TODO: Listen for keyboard input
