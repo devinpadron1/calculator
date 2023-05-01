@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Backspace (DEL) button
     delButton.addEventListener("click", () => {
-        // TODO: Add condition DEL button to work with negative numbers.
         if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
             // multi-digit condition
             if (num1 > 0) { // if number is positive
@@ -120,16 +119,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 num1 = Math.ceil(num1 / 10);
             }
             // single digit condition
-            if (num1 < 1 && num1 > 0) {
-                num1 = 0;
-            } else if (num1 > -1 && num1 < 0) {
-                num1 = 0;
+            if (num1 == 0) {
+                replaceTracker = true;
             }
             updateDisplay(num1);
         } else if (operatorCounter > 0 && num2 !== 0) { // else if in num2 and number isnt 0
-            num2 = Math.floor(num2 / 10);
+            if (num2 > 0) {
+                num2 = Math.floor(num2 / 10);
+            } else {
+                num2 = Math.ceil(num2 / 10);
+            }
             if (num2 == 0) {
-                num2 = 0;
                 displayMain.textContent = num2;
                 displayEqn.textContent = num1 + ' ' + operator + ' ';
                 replaceTracker = true;
