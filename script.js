@@ -111,9 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Backspace (DEL) button
     delButton.addEventListener("click", () => {
+        // TODO: Add condition DEL button to work with negative numbers.
         if ((operatorCounter == 0 && num1 !== 0) || (operatorCounter > 0 && equalsClicked)) {
-            num1 = Math.floor(num1 / 10);
-            if (num1 < 0) {
+            // multi-digit condition
+            if (num1 > 0) { // if number is positive
+                num1 = Math.floor(num1 / 10);
+            } else { // if number is negative
+                num1 = Math.ceil(num1 / 10);
+            }
+            // single digit condition
+            if (num1 < 1 && num1 > 0) {
+                num1 = 0;
+            } else if (num1 > -1 && num1 < 0) {
                 num1 = 0;
             }
             updateDisplay(num1);
@@ -173,6 +182,12 @@ document.addEventListener("DOMContentLoaded", () => {
         displayMain.textContent = value;
         displayEqn.textContent = value;
     }
+
+    // Keyboard input
+    document.addEventListener('keydown', (event) => {
+        const key = event.key; // Get the pressed key    
+    })
+      
 });
 
 // TODO: Make display text shrink if number of digits is large enough
