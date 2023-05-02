@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     displayEqn.textContent += button.textContent;
                     // Concatenate text
                     numTracker ? (num1 += button.textContent) : (num2 += button.textContent);
-                } 
+                }
             }
         })  
     })
@@ -110,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
         updateDisplay(0);
         resetVariables();
         equalsClicked = false;
+        // Reset font size
+        displayMain.style.fontSize = "72px";
     })
     
     // Backspace (DEL) button
@@ -209,10 +211,19 @@ document.addEventListener("DOMContentLoaded", () => {
             // Round to 3 decimal places
             value = parseFloat(value.toFixed(3));
         }
+    
+        // Check if the value has more than 6 digits
+        if (value.toString().length > 7) {
+            // Convert to scientific notation
+            value = value.toExponential(3);
+            displayMain.style.fontSize = "50px";
+        }
+    
         displayMain.textContent = value;
         displayEqn.textContent = value;
     }
 
+    
     // Keyboard input
     document.addEventListener('keydown', (event) => {
         handleKeyboardInput(event.key);
@@ -257,5 +268,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }      
 });
-
-// TODO: Make display text shrink if number of digits is large enough
